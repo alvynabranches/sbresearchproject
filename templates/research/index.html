@@ -39,6 +39,18 @@
     {% endif %}
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        @media (max-width: 994px){
+            .mobile-container {
+                text-align: center;
+            }
+        }
+        @media (min-width: 994px) {
+            .mobile-container {
+                visibility: hidden;
+            }
+        }
+    </style>
 </head>
 <body class="bg-dark">
     <div class="container">
@@ -55,6 +67,12 @@
             </div>
         </nav>
     </div>
-    
+    <div class="container container-fluid mobile-container" style="margin-top: 10vh;">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" style="color:#ffffff;font-weight:bold;" href="/branch_prediction">Branch Prediction</a></li>
+            <li class="nav-item"><a class="nav-link" style="color:#ffffff;font-weight:bold;" href="/college_prediction">College Prediction</a></li>
+            <li class="nav-item"><a class="nav-link" style="color:#ffffff;font-weight:bold;" href="/placement_prediction">Placement Prediction</a></li>
+        </ul>
+    </div>
 </body>
 </html>
