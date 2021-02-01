@@ -1,0 +1,27 @@
+.btn-group {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.btn-rnd {
+    border-radius: 25px;
+}
+
+.form-container {
+    width: 50vw;
+    padding-top: 10vh;
+}
+
+.form-input {
+    border-radius: 100px;
+}
+
+.result-div {
+    padding-top: 20px;
+}
+
+/* .table-custom {
+    margin-top: 200px;
+} */

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Prediction</title>
+    {% if online %}
+        <!-- jQuery v3.5.1 -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+
+        <!-- Boostrap v5.0.0 JS bundle w/ Popper.js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        
+        <!-- Bootstrap v5.0.0 CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+        <!-- Boostrap v4.5.3 JS bundle w/ Popper.js -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+        
+        <!-- Bootstrap v4.5.3 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    {% endif %}
+    {% if offline %}
+        <!-- jQuery v3.5.1 -->
+        <script src="{% static 'jquery/v3.5.1/jquery-3.5.1.slim.min.js' %}"></script>
+
+        <!-- Boostrap v5.0.0 JS bundle w/ Popper.js -->
+        <script src="{% static 'bootstrap/v5.0.0-beta1/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- Bootstrap v5.0.0 CSS -->
+        <link href="{% static 'bootstrap/v5.0.0-beta1/css/bootstrap.min.css' %}" rel="stylesheet">
+
+        <!-- Boostrap v4.5.3 jQuery and JS bundle w/ Popper.js -->
+        <script src="{% static 'bootstrap/v4.5.3/js/bootstrap.bundle.min.js' %}"></script>
+
+        <!-- Bootstrap v4.5.3 CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/v4.5.3/css/bootstrap.min.css' %}">
+    {% endif %}
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a href="/" class="navbar-brand">NavBrand</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" style="color:#ffffff;font-weight:bold;" href="/branch_prediction">Branch Prediction</a></li>
+                    <li class="nav-item"><a class="nav-link" style="color:#ffffff;font-weight:bold;" href="/college_prediction">College Prediction</a></li>
+                    <li class="nav-item"><a class="nav-link" style="color:#ffffff;font-weight:bold;" href="/placement_prediction">Placement Prediction</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <div class="container form-container">
+        <form action="" method="post">
+            <div class="form-group"><input type="text" class="form-control form-input" name="merit_no" id="merit_no" placeholder="Merit No" required></div>
+            <div class="form-group"><input type="text" class="form-control form-input" name="merit_marks" id="merit_marks" placeholder="Merit Marks" required></div>
+            <div class="form-group"><input type="text" class="form-control form-input" name="hsc_eligibility" id="hsc_eligibility" placeholder="HSC Eligibility" required></div>
+            <div class="form-group">
+                <select class="form-control form-input" name="college_name" id="college_name" placeholder="College Name" required>
+                    <option value="">College Name</option>
+                    {% for e in ucn %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="college_code" id="college_code" placeholder="College Code" required>
+                    <option value="">College Code</option>
+                    {% for e in ucc %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="gender" id="gender" placeholder="Gender" required>
+                    <option value="">Gender</option>
+                    {% for e in ug %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="candidate_type" id="candidate_type" placeholder="Candidate Type" required>
+                    <option value="">Candidate Type</option>
+                    {% for e in uct %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="category" id="category" placeholder="Category" required>
+                    <option value="">Category</option>
+                    {% for e in uc %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="home_university" id="home_university" placeholder="Home University" required>
+                    <option value="">Home University</option>
+                    {% for e in uhu %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select type="text" class="form-control form-input" name="ph_type" id="ph_type" placeholder="PH Type" required>
+                    <option value="">PH Type</option>
+                    {% for e in upt %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="defence_type" id="defence_type" placeholder="Defence Type" required>
+                    <option value="">Defence Type</option>
+                    {% for e in udt %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="nationality" id="nationality" placeholder="Nationality" required>
+                    <option value="">Nationality</option>
+                    {% for e in un %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="cap_round" id="cap_round" placeholder="Cap Round" required>
+                    <option value="">Cap Round</option>
+                    {% for e in ucr %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control form-input" name="branch" id="branch" placeholder="Branch (optional)">
+                    <option value="">Branch (optional)</option>
+                    {% for e in ub %}
+                        <option value="{{ e }}">{{ e }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="btn-group d-flex pt-2 ml-5 mr-5 pl-5 pr-5">
+                <button type="submit" class="btn btn-primary btn-rnd">Submit</button>
+                <button type="reset" class="btn btn-danger btn-rnd">Clear</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
