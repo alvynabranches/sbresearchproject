@@ -249,9 +249,9 @@ def placement_prediction(request):
         
         init_results = model.predict(data).tolist()[0]
         if init_results == 0:
-            results = 'Wont Get Placement'
-        elif init_results == 1:
             results = 'Will Get Placement'
+        elif init_results == 1:
+            results = 'Wont Get Placement'
         else:
             results = 'Not Sure of Placement'
         print(results)
